@@ -1,3 +1,6 @@
+const todosNode = document.querySelector('.js-todos');
+const inputNode = document.querySelector('.js-input');
+const btnNode = document.querySelector('.js-btn');
 let todos = [];
 
 function addTodo(text) {
@@ -21,10 +24,27 @@ function deleteTodo(id) {
 
 // Выводим список в консоль
 function render() {
-    console.log(todos);
+    let html = '';
+
+    todos.forEach(todo => {
+        if (todo.done) {
+            retutn;
+        };
+
+        html += `
+        <div>${todo.text}</div>
+        `;
+        })
+    todosNode.innerHTML = html;
 }
 
-// Добавляем пункт в список
-addTodo('Купить хлеб');
-render();
+// Создаём возможность добавления задачи
+btnNode.addEventListener('click', () => {
+const text = inputNode.value;  //при клике на кнопку достаём актуальный текст из поля ввода
 
+addTodo(text);
+
+render(); //метод обновляет актуальное состояние интерфейса
+});
+
+render();
