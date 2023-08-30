@@ -28,11 +28,14 @@ function render() {
 
     todos.forEach(todo => {
         if (todo.done) {
-            retutn;
+            return;
         };
 
         html += `
-        <div>${todo.text}</div>
+         <div>
+           ${todo.text}
+           <button data-id='${todo.id}'>Сделано</button>
+         </div>
         `;
         })
     todosNode.innerHTML = html;
@@ -40,11 +43,23 @@ function render() {
 
 // Создаём возможность добавления задачи
 btnNode.addEventListener('click', () => {
-const text = inputNode.value;  //при клике на кнопку достаём актуальный текст из поля ввода
+   const text = inputNode.value;  //при клике на кнопку достаём актуальный текст из поля ввода
 
-addTodo(text);
+   addTodo(text);
 
-render(); //метод обновляет актуальное состояние интерфейса
+   render(); //метод обновляет актуальное состояние интерфейса
+});
+
+todosNode.addEventListener('click', (event) => {
+    if (event.target.tagName !== 'BUTTON') {  //если клик произошёл не на кнопке, то ничего не делаем
+        return;
+    }
+
+    const id = event.target.dataset.id;  //достаем id
+
+    deleteTodo(id); //удаляем задачу
+
+    render();
 });
 
 render();
